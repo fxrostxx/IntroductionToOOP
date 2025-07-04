@@ -63,13 +63,29 @@ public:
 		cout << "Destructor: " << this << endl;
 	}
 
-	Point& operator = (const Point& other)
+	Point& operator= (const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
 		cout << "CopyAssignment: " << this << endl;
 
 		return *this;
+	}
+	Point& operator++ () // Prefix
+	{
+		++x;
+		++y;
+
+		return *this;
+	}
+	Point operator++ (int) // Postfix
+	{
+		Point old = *this;
+
+		++x;
+		++y;
+
+		return old;
 	}
 
 	double distance() const // Расстояние до точки от начала координат
@@ -88,12 +104,18 @@ public:
 	}
 };
 
+Point operator+ (const Point& left, const Point& right);
+bool operator== (const Point& left, const Point& right);
+bool operator!= (const Point& left, const Point& right);
+
 double distance(const Point& A, const Point& B); // Расстояние между двумя точками
 
 //#define STRUCT_POINT
 //#define STRUCT_POINT_GET_SET
 //#define DISTANCE
 //#define CONSTRUCTORS
+//#define ASSIGNMENT
+//#define ARITHMETICAL_OPERATORS
 
 int main()
 {
@@ -160,6 +182,7 @@ int main()
 	E.print();
 #endif // CONSTRUCTORS
 
+#ifdef ASSIGNMENT
 	int a, b, c;
 	a = b = c = 0;
 	cout << a << ' ' << b << ' ' << c << endl;
@@ -171,8 +194,48 @@ int main()
 	A.print();
 	B.print();
 	C.print();
+#endif // ASSIGNMENT
+
+#ifdef ARITHMETICAL_OPERATORS
+	Point A{ 2, 3 };
+	Point B{ 7, 8 };
+	Point C{ A + B };
+
+	A.print();
+	B.print();
+	C.print();
+
+	A = B++;
+	A.print();
+	B.print();
+#endif // ARITHMETICAL_OPERATORS
+
+	cout << (Point(2, 3) == Point(2, 3)) << endl;
+
+	cout << (Point(2, 3) != Point(2, 3)) << endl;
 
 	return 0;
+}
+
+Point operator+ (const Point& left, const Point& right)
+{
+	Point result;
+
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+
+	return result;
+}
+bool operator== (const Point& left, const Point& right)
+{
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y()) return true;
+	else return false;*/
+
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+}
+bool operator!= (const Point& left, const Point& right)
+{
+	return !(left == right);
 }
 
 double distance(const Point& A, const Point& B)
