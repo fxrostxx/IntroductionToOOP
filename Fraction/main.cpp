@@ -175,21 +175,15 @@ public:
 	}
 	Fraction& operator-- ()
 	{
-		this->ToImproper();
-
-		numerator -= denominator;
-
-		this->ToProper();
+		--integer;
 
 		return *this;
 	}
-	Fraction operator-- (int)
+	const Fraction operator-- (int)
 	{
 		Fraction old = *this;
 
-		this->ToImproper();
-		numerator -= denominator;
-		this->ToProper();
+		--integer;
 
 		return old;
 	}
