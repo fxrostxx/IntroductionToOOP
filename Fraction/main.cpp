@@ -329,9 +329,25 @@ bool operator <= (const Fraction& left, const Fraction& right)
 	return !(left > right);
 }
 
+std::ostream& operator<< (std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer()) os << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer()) os << "(";
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer()) os << ")";
+	}
+	else if (obj.get_integer() == 0) os << 0;
+
+	return os;
+}
+
 //#define CONSTRUCTORS
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
+//#define COMPARISON_OPERATORS
+//#define STREAMS
 
 int main()
 {
@@ -402,6 +418,7 @@ int main()
 	cout << "Постфиксный инкремент: ";  I.Print();
 #endif // INCREMENT_DECREMENT
 
+#ifdef COMPARISON_OPERATORS
 	Fraction J{ 1, 5, 3 };
 	Fraction K{ 1, 2, 3 };
 
@@ -421,6 +438,16 @@ int main()
 
 	L.ReduceFraction();
 	cout << "Сокращение дроби: "; L.Print();
+#endif // COMPARISON_OPERATORS
+
+#ifdef STREAMS
+	Fraction A{ 2, 3, 4 };
+
+	cout << "Введите простую дробь: ";
+	cin >> A;
+
+	cout << A << endl;
+#endif // STREAMS
 
 	return 0;
 }
