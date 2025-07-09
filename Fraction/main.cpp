@@ -292,11 +292,13 @@ Fraction operator- (const Fraction& left, const Fraction& right)
 		lcm
 	}.ToProper();
 }
-bool operator== (const Fraction& left, const Fraction& right)
+bool operator== (Fraction left, Fraction right)
 {
-	return left.get_integer() == right.get_integer()
-		&& left.get_numerator() == right.get_numerator()
-		&& left.get_denominator() == right.get_denominator();
+	left.ToImproper();
+	right.ToImproper();
+
+	return left.get_numerator() * right.get_denominator() ==
+		left.get_denominator() * right.get_numerator();
 }
 bool operator!= (const Fraction& left, const Fraction& right)
 {
@@ -304,32 +306,19 @@ bool operator!= (const Fraction& left, const Fraction& right)
 }
 bool operator> (Fraction left, Fraction right)
 {
-	if (left == right) return false;
+	left.ToImproper();
+	right.ToImproper();
 
-	/*else if (left.get_denominator() == right.get_denominator())
-		return left.get_integer() >= right.get_integer() && left.get_numerator() > right.get_numerator();
-
-	else if (left.get_numerator() == right.get_numerator())
-		return left.get_integer() >= right.get_integer() && left.get_denominator() < right.get_denominator();
-
-	else if (left.get_denominator() == right.get_denominator() && left.get_numerator() == right.get_numerator())
-		return left.get_integer() > right.get_integer();*/
-
-	else
-	{
-		left.ToImproper();
-		right.ToImproper();
-
-		int lcm{ LCM(left.get_denominator(), right.get_denominator()) };
-
-		return left.get_numerator() * (lcm / left.get_denominator()) >
-			right.get_numerator() * (lcm / right.get_denominator());
-	}
+	return left.get_numerator() * right.get_denominator() >
+		left.get_denominator() * right.get_numerator();
 }
-bool operator< (const Fraction& left, const Fraction& right)
+bool operator< (Fraction left, Fraction right)
 {
-	if (left == right) return false;
-	else return !(left > right);
+	left.ToImproper();
+	right.ToImproper();
+
+	return left.get_numerator() * right.get_denominator() <
+		left.get_denominator() * right.get_numerator();
 }
 bool operator>= (const Fraction& left, const Fraction& right)
 {
