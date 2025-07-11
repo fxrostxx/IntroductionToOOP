@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <cmath>
 using namespace std;
 using std::cout;
@@ -414,34 +414,34 @@ int main()
 	B.Print();
 
 	Fraction C{ A * B };
-	cout << "Ïðîèçâåäåíèå: ";  C.Print();
+	cout << "ÐŸÑ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ: ";  C.Print();
 
 	C = A / B;
-	cout << "×àñòíîå: ";  C.Print();
+	cout << "Ð§Ð°ÑÑ‚Ð½Ð¾Ðµ: ";  C.Print();
 
 	C = A + B;
-	cout << "Ñóììà: ";  C.Print();
+	cout << "Ð¡ÑƒÐ¼Ð¼Ð°: ";  C.Print();
 
 	C = A - B;
-	cout << "Ðàçíîñòü: ";  C.Print();
+	cout << "Ð Ð°Ð·Ð½Ð¾ÑÑ‚ÑŒ: ";  C.Print();
 
 	A += B;
-	cout << "Ñóììà (+=): ";  A.Print();
+	cout << "Ð¡ÑƒÐ¼Ð¼Ð° (+=): ";  A.Print();
 
 	Fraction D{ 1, 2, 3 };
 	Fraction E{ 2, 3, 4 };
 
 	D -= E;
-	cout << "Ðàçíîñòü (-=): ";  D.Print();
+	cout << "Ð Ð°Ð·Ð½Ð¾ÑÑ‚ÑŒ (-=): ";  D.Print();
 
 	Fraction F{ 1, 2, 3 };
 	Fraction G{ 2, 3, 4 };
 
 	F *= G;
-	cout << "Ïðîèçâåäåíèå (*=): ";  F.Print();
+	cout << "ÐŸÑ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ (*=): ";  F.Print();
 
 	F /= G;
-	cout << "×àñòíîå (/=): ";  F.Print();
+	cout << "Ð§Ð°ÑÑ‚Ð½Ð¾Ðµ (/=): ";  F.Print();
 #endif // ARITHMETICAL_OPERATORS
 
 #ifdef INCREMENT_DECREMENT
@@ -449,38 +449,38 @@ int main()
 	Fraction I{ 2, 3, 4 };
 
 	I = ++H;
-	cout << "Ïðåôèêñíûé èíêðåìåíò: ";  I.Print();
+	cout << "ÐŸÑ€ÐµÑ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚: ";  I.Print();
 
 	I = H++;
-	cout << "Ïîñòôèêñíûé èíêðåìåíò: ";  I.Print();
+	cout << "ÐŸÐ¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚: ";  I.Print();
 #endif // INCREMENT_DECREMENT
 
 #ifdef COMPARISON_OPERATORS
 	Fraction J{ 1, 5, 3 };
 	Fraction K{ 1, 2, 3 };
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (==): " << (J == K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (==): " << (J == K) << endl;
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (!=): " << (J != K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (!=): " << (J != K) << endl;
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (>): " << (J > K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (>): " << (J > K) << endl;
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (<): " << (J < K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (<): " << (J < K) << endl;
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (>=): " << (J >= K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (>=): " << (J >= K) << endl;
 
-	cout << "Îïåðàòîð ñðàâíåíèÿ (<=): " << (J <= K) << endl;
+	cout << "ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ (<=): " << (J <= K) << endl;
 
 	Fraction L{ 1, 15, 3 };
 
 	L.ReduceFraction();
-	cout << "Ñîêðàùåíèå äðîáè: "; L.Print();
+	cout << "Ð¡Ð¾ÐºÑ€Ð°Ñ‰ÐµÐ½Ð¸Ðµ Ð´Ñ€Ð¾Ð±Ð¸: "; L.Print();
 #endif // COMPARISON_OPERATORS
 
 #ifdef STREAMS
 	Fraction A{ 2, 3, 4 };
 
-	cout << "Ââåäèòå ïðîñòóþ äðîáü: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ñ€Ð¾ÑÑ‚ÑƒÑŽ Ð´Ñ€Ð¾Ð±ÑŒ: ";
 	cin >> A;
 
 	cout << A << endl;
