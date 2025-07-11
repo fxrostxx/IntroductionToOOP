@@ -366,14 +366,25 @@ std::ostream& operator<< (std::ostream& os, const Fraction& obj)
 }
 std::istream& operator>> (std::istream& is, Fraction& obj)
 {
-	int integer, numerator, denominator;
-	char sep;
+	const int size = 256;
+	char temp[size]{};
+	
+	is.getline(temp, size);
 
-	is >> integer >> sep >> numerator >> sep >> denominator >> sep;
+	int n = 0;
+	int numbers[3]{};
+	const char delimeters[]{ "() /," };
 
-	obj.set_integer(integer);
-	obj.set_numerator(numerator);
-	obj.set_denominator(denominator);
+	for (char* pch = strtok(temp, delimeters); pch && n < 3; pch = strtok(NULL, delimeters))
+		numbers[n++] = atoi(pch);
+
+	switch (n)
+	{
+	case 0: obj = Fraction{}; break;
+	case 1: obj = Fraction{ numbers[0] }; break;
+	case 2: obj = Fraction{ numbers[0], numbers[1] }; break;
+	case 3: obj = Fraction{ numbers[0], numbers[1], numbers[2] }; break;
+	}
 
 	return is;
 }
@@ -382,9 +393,9 @@ std::istream& operator>> (std::istream& is, Fraction& obj)
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERATORS
-//#define STREAMS
+#define STREAMS
 //#define CONVERSION_FROM_CLASS_TO_OTHER
-#define HAVE_A_NICE_DAY
+//#define HAVE_A_NICE_DAY
 
 int main()
 {
