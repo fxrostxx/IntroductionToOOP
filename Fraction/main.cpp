@@ -73,15 +73,15 @@ public:
 	}
 	explicit Fraction(double value)
 	{
-		int precision = 10000;
+		int precision = 1e+9; // 1000000000
 
-		this->integer = (int)value;
+		this->integer = value;
 		this->numerator = round((value - integer) * precision);
 		this->denominator = precision;
 
 		this->ReduceFraction();
 
-		cout << "SingleDoubleArgumentConstructor: " << this << endl;
+		cout << "SingleArgumentConstructor: " << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
