@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 using std::cout;
 using std::cin;
@@ -62,13 +63,25 @@ public:
 
 		cout << "DefaultConstructor: " << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
 
 		cout << "SingleArgumentConstructor: " << this << endl;
+	}
+	explicit Fraction(double value)
+	{
+		int precision = 10000;
+
+		this->integer = (int)value;
+		this->numerator = round((value - integer) * precision);
+		this->denominator = precision;
+
+		this->ReduceFraction();
+
+		cout << "SingleDoubleArgumentConstructor: " << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -186,6 +199,15 @@ public:
 		--integer;
 
 		return old;
+	}
+
+	explicit operator int() const
+	{
+		return integer + numerator / denominator;
+	}
+	explicit operator double() const
+	{
+		return integer + (double)numerator / denominator;
 	}
 
 	void Print() const
@@ -342,12 +364,27 @@ std::ostream& operator<< (std::ostream& os, const Fraction& obj)
 
 	return os;
 }
+std::istream& operator>> (std::istream& is, Fraction& obj)
+{
+	int integer, numerator, denominator;
+	char sep;
+
+	is >> integer >> sep >> numerator >> sep >> denominator >> sep;
+
+	obj.set_integer(integer);
+	obj.set_numerator(numerator);
+	obj.set_denominator(denominator);
+
+	return is;
+}
 
 //#define CONSTRUCTORS
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERATORS
 //#define STREAMS
+//#define CONVERSION_FROM_CLASS_TO_OTHER
+#define HAVE_A_NICE_DAY
 
 int main()
 {
@@ -449,5 +486,27 @@ int main()
 	cout << A << endl;
 #endif // STREAMS
 
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER
+	Fraction A{ 1, 2, 3 };
+	A.ToImproper();
+
+	int a = (int)A;
+
+	cout << a << endl;
+
+	double b = (double)A;
+
+	cout << b << endl;
+
 	return 0;
+#endif // CONVERSION_FROM_CLASS_TO_OTHER
+
+#ifdef HAVE_A_NICE_DAY
+	Fraction A{ Fraction{ 2.75 } };
+
+	cout << A << endl;
+#endif // HAVE_A_NICE_DAY
+
+
+
 }
