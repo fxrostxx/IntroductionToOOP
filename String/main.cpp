@@ -31,7 +31,7 @@ public:
 
 		cout << "DefaultConstructor: " << this << endl;
 	}
-	String(const char* str)
+	String(const char* str)	
 	{
 		size = strlen(str) + 1;
 		this->str = new char[size] {};
