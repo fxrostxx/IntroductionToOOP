@@ -67,6 +67,8 @@ public:
 
 	String& operator= (const String& other)
 	{
+		if (this == &other) return *this;
+
 		delete[] str;
 
 		size = other.size;
@@ -96,6 +98,7 @@ std::ostream& operator<< (std::ostream& os, const String& obj)
 }
 
 //#define CONSTRUCTORS
+//#define COPY_SEMANTIC
 
 int main()
 {
@@ -119,12 +122,16 @@ int main()
 	cout << str5 << endl;
 #endif // CONSTRUCTORS
 
+#ifdef COPY_SEMANTIC
 	String str1{ "Hello" };
 	cout << str1 << endl;
 
 	String str2;
 	str2 = str1;
 	cout << str2 << endl;
+#endif // COPY_SEMANTIC
+
+
 
 	return 0;
 }

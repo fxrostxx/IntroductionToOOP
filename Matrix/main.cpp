@@ -115,6 +115,8 @@ public:
 
 	Matrix& operator= (const Matrix& other)
 	{
+		if (this == &other) return *this;
+
 		for (int i = 0; i < rows; ++i) delete[] arr[i];
 		delete[] arr;
 
