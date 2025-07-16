@@ -72,6 +72,18 @@ public:
 
 		cout << "CopyConstructor: " << this << endl;
 	}
+	Matrix(Matrix&& other) noexcept
+	{
+		rows = other.rows;
+		cols = other.cols;
+		arr = other.arr;
+
+		other.rows = 0;
+		other.cols = 0;
+		other.arr = nullptr;
+
+		cout << "MoveConstructor: " << this << endl;
+	}
 	~Matrix()
 	{
 		for (int i = 0; i < rows; ++i)
@@ -134,6 +146,25 @@ public:
 
 		return *this;
 	}
+	Matrix& operator= (Matrix&& other) noexcept
+	{
+		if (this == &other) return *this;
+
+		for (int i = 0; i < rows; ++i) delete[] arr[i];
+		delete[] arr;
+
+		rows = other.rows;
+		cols = other.cols;
+		arr = other.arr;
+
+		other.rows = 0;
+		other.cols = 0;
+		other.arr = nullptr;
+
+		cout << "MoveAssignment: " << this << endl;
+
+		return *this;
+	}
 	Matrix& operator+= (const Matrix& other)
 	{
 		return *this = *this + other;
@@ -146,9 +177,17 @@ public:
 	{
 		return *this = *this * other;
 	}
-	Matrix& operator*= (const int& other)
+	Matrix& operator*= (const int other)
 	{
 		return *this = *this * other;
+	}
+	const int* operator[] (int i) const
+	{
+		return arr[i];
+	}
+	int* operator[] (int i)
+	{
+		return arr[i];
 	}
 };
 
@@ -160,7 +199,7 @@ Matrix operator+ (const Matrix& left, const Matrix& right)
 
 	for (int i = 0; i < result.get_rows(); ++i)
 	{
-		for (int j = 0; j < result.get_cols(); ++j) result.get_arr()[i][j] = left.get_arr()[i][j] + right.get_arr()[i][j];
+		for (int j = 0; j < result.get_cols(); ++j) result[i][j] = left[i][j] + right[i][j];
 	}
 
 	return result;
@@ -173,7 +212,7 @@ Matrix operator- (const Matrix& left, const Matrix& right)
 
 	for (int i = 0; i < result.get_rows(); ++i)
 	{
-		for (int j = 0; j < result.get_cols(); ++j) result.get_arr()[i][j] = left.get_arr()[i][j] - right.get_arr()[i][j];
+		for (int j = 0; j < result.get_cols(); ++j) result[i][j] = left[i][j] - right[i][j];
 	}
 
 	return result;
@@ -188,7 +227,7 @@ Matrix operator* (const Matrix& left, const Matrix& right)
 	{
 		for (int j = 0; j < right.get_cols(); ++j)
 		{
-			for (int k = 0; k < left.get_cols(); ++k) result.get_arr()[i][j] += left.get_arr()[i][k] * right.get_arr()[k][j];
+			for (int k = 0; k < left.get_cols(); ++k) result[i][j] += left[i][k] * right[k][j];
 		}
 	}
 
@@ -200,7 +239,7 @@ Matrix operator* (const Matrix& left, const int right)
 
 	for (int i = 0; i < left.get_rows(); ++i)
 	{
-		for (int j = 0; j < left.get_cols(); ++j) result.get_arr()[i][j] = left.get_arr()[i][j] * right;
+		for (int j = 0; j < left.get_cols(); ++j) result[i][j] = left[i][j] * right;
 	}
 
 	return result;
@@ -217,7 +256,7 @@ bool operator== (const Matrix& left, const Matrix& right)
 	{
 		for (int j = 0; j < left.get_cols(); ++j)
 		{
-			if (left.get_arr()[i][j] != right.get_arr()[i][j]) return false;
+			if (left[i][j] != right[i][j]) return false;
 		}
 	}
 

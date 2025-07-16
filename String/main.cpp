@@ -49,6 +49,16 @@ public:
 
 		cout << "CopyConstructor: " << this << endl;
 	}
+	String(String&& other) noexcept
+	{
+		size = other.size;
+		str = other.str;
+
+		other.size = 0;
+		other.str = nullptr;
+
+		cout << "MoveConstructor: " << this << endl;
+	}
 
 	~String()
 	{
@@ -80,6 +90,22 @@ public:
 
 		return *this;
 	}
+	String& operator= (String&& other) noexcept
+	{
+		if (this == &other) return *this;
+
+		delete[] str;
+
+		size = other.size;
+		str = other.str;
+
+		other.size = 0;
+		other.str = nullptr;
+
+		cout << "MoveAssignment: " << this << endl;
+
+		return *this;
+	}
 	char operator[] (int i) const
 	{
 		return str[i];
@@ -97,7 +123,7 @@ String operator+ (const String& left, const String& right)
 	for (int i = 0; i < left.get_size(); ++i) result[i] = left[i];
 	for (int i = 0; i < right.get_size(); ++i) result[i + left.get_size() - 1] = right[i];
 
-	return result;	
+	return result;
 }
 
 std::ostream& operator<< (std::ostream& os, const String& obj)
@@ -105,7 +131,7 @@ std::ostream& operator<< (std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
-//#define CONSTRUCTORS
+#define CONSTRUCTORS
 //#define COPY_SEMANTIC
 
 int main()
@@ -126,7 +152,8 @@ int main()
 	String str4{ "World" };
 	cout << str4 << endl;
 
-	String str5 = str3 + str4;
+	String str5;
+	str5 = str3 + str4;
 	cout << str5 << endl;
 #endif // CONSTRUCTORS
 
