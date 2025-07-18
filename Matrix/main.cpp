@@ -13,9 +13,9 @@ Matrix operator* (const Matrix& left, int right);
 class Matrix
 {
 private:
-	int** arr;
 	int rows;
 	int cols;
+	int** arr;
 
 public:
 	const int* const* get_arr() const
@@ -35,22 +35,14 @@ public:
 		return cols;
 	}
 
-	explicit Matrix(const int rows = 3, const int cols = 3)
+	explicit Matrix(const int rows = 3, const int cols = 3) : rows(rows), cols(cols), arr(new int* [rows])
 	{
-		this->rows = rows;
-		this->cols = cols;
-		arr = new int* [rows];
 		for (int i = 0; i < rows; ++i) arr[i] = new int[cols] {};
 
 		cout << "DefaultConstructor: " << this << endl;
 	}
-	Matrix(const int* const* arr, const int rows, const int cols)
+	Matrix(const int* const* arr, const int rows, const int cols) : Matrix(rows, cols)
 	{
-		this->rows = rows;
-		this->cols = cols;
-		this->arr = new int* [rows];
-		for (int i = 0; i < rows; ++i) this->arr[i] = new int[cols] {};
-
 		for (int i = 0; i < rows; ++i)
 		{
 			for (int j = 0; j < cols; ++j) this->arr[i][j] = arr[i][j];
@@ -58,24 +50,12 @@ public:
 
 		cout << "Constructor: " << this << endl;
 	}
-	Matrix(const Matrix& other)
+	Matrix(const Matrix& other) : Matrix(other.arr, other.rows, other.cols)
 	{
-		rows = other.rows;
-		cols = other.cols;
-		this->arr = new int* [rows];
-		for (int i = 0; i < rows; ++i) arr[i] = new int[cols] {};
-
-		for (int i = 0; i < rows; ++i)
-		{
-			for (int j = 0; j < cols; ++j) arr[i][j] = other.arr[i][j];
-		}
-
 		cout << "CopyConstructor: " << this << endl;
 	}
-	Matrix(Matrix&& other) noexcept
+	Matrix(Matrix&& other) noexcept : rows(other.rows), cols(other.cols)
 	{
-		rows = other.rows;
-		cols = other.cols;
 		arr = other.arr;
 
 		other.rows = 0;
