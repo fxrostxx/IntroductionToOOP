@@ -11,96 +11,113 @@ private:
 	char* str;
 
 public:
-	const char* get_str() const
-	{
-		return str;
-	}
-	char* get_str()
-	{
-		return str;
-	}
-	int get_size() const
-	{
-		return size;
-	}
+	const char* get_str() const;
+	char* get_str();
+	int get_size() const;
 
-	explicit String(int size = 80) : size(size), str(new char[size] {})
-	{
-		cout << "DefaultConstructor: " << this << endl;
-	}
-	String(const char* str) : String(strlen(str) + 1)
-	{
-		for (int i = 0; i < size; ++i) this->str[i] = str[i];
+	explicit String(int size = 80);
+	String(const char* str);
+	String(const String& other);
+	String(String&& other) noexcept;
 
-		cout << "Constructor: " << this << endl;
-	}
-	String(const String& other) : String(other.str)
-	{
-		cout << "CopyConstructor: " << this << endl;
-	}
-	String(String&& other) noexcept : size(other.size), str(other.str)
-	{
-		other.size = 0;
-		other.str = nullptr;
+	~String();
 
-		cout << "MoveConstructor: " << this << endl;
-	}
+	void print() const;
 
-	~String()
-	{
-		delete[] str;
-		str = nullptr;
-		size = 0;
-
-		cout << "Destructor: " << this << endl;
-	}
-
-	void print() const
-	{
-		cout << "Size: " << size << endl;
-		cout << "Str: " << str << endl;
-	}
-
-	String& operator= (const String& other)
-	{
-		if (this == &other) return *this;
-
-		delete[] str;
-
-		size = other.size;
-		str = new char[size] {};
-
-		for (int i = 0; i < size; ++i) str[i] = other.str[i];
-
-		cout << "CopyAssignment: " << this << endl;
-
-		return *this;
-	}
-	String& operator= (String&& other) noexcept
-	{
-		if (this == &other) return *this;
-
-		delete[] str;
-
-		size = other.size;
-		str = other.str;
-
-		other.size = 0;
-		other.str = nullptr;
-
-		cout << "MoveAssignment: " << this << endl;
-
-		return *this;
-	}
-	char operator[] (int i) const
-	{
-		return str[i];
-	}
-	char& operator[] (int i)
-	{
-		return str[i];
-	}
+	String& operator= (const String& other);
+	String& operator= (String&& other) noexcept;
+	char operator[] (int i) const;
+	char& operator[] (int i);
 };
+const char* String::get_str() const
+{
+	return str;
+}
+char* String::get_str()
+{
+	return str;
+}
+int String::get_size() const
+{
+	return size;
+}
+
+String::String(int size) : size(size), str(new char[size] {})
+{
+	cout << "DefaultConstructor: " << this << endl;
+}
+String::String(const char* str) : String(strlen(str) + 1)
+{
+	for (int i = 0; i < size; ++i) this->str[i] = str[i];
+
+	cout << "Constructor: " << this << endl;
+}
+String::String(const String& other) : String(other.str)
+{
+	cout << "CopyConstructor: " << this << endl;
+}
+String::String(String&& other) noexcept : size(other.size), str(other.str)
+{
+	other.size = 0;
+	other.str = nullptr;
+
+	cout << "MoveConstructor: " << this << endl;
+}
+
+String::~String()
+{
+	delete[] str;
+	str = nullptr;
+	size = 0;
+
+	cout << "Destructor: " << this << endl;
+}
+
+void String::print() const
+{
+	cout << "Size: " << size << endl;
+	cout << "Str: " << str << endl;
+}
+
+String& String::operator= (const String& other)
+{
+	if (this == &other) return *this;
+
+	delete[] str;
+
+	size = other.size;
+	str = new char[size] {};
+
+	for (int i = 0; i < size; ++i) str[i] = other.str[i];
+
+	cout << "CopyAssignment: " << this << endl;
+
+	return *this;
+}
+String& String::operator= (String&& other) noexcept
+{
+	if (this == &other) return *this;
+
+	delete[] str;
+
+	size = other.size;
+	str = other.str;
+
+	other.size = 0;
+	other.str = nullptr;
+
+	cout << "MoveAssignment: " << this << endl;
+
+	return *this;
+}
+char String::operator[] (int i) const
+{
+	return str[i];
+}
+char& String::operator[] (int i)
+{
+	return str[i];
+}
 
 String operator+ (const String& left, const String& right)
 {
