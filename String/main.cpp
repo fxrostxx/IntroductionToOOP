@@ -131,7 +131,7 @@ std::ostream& operator<< (std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
-#define CONSTRUCTORS
+//#define CONSTRUCTORS
 //#define COPY_SEMANTIC
 
 int main()
@@ -166,7 +166,35 @@ int main()
 	cout << str2 << endl;
 #endif // COPY_SEMANTIC
 
+	String str1;	// DefaultConstructor
+	str1.print();
 
+	String str2(5);	// SingleArgumentConstructor
+	str2.print();
+
+	String str3("Hello");	// SingleArgumentConstructor
+	str2.print();
+
+	String str4();	// Function
+	//str4.print();
+
+	String str5{};	// DefaultConstructor
+	str5.print();
+
+	String str6{ 6 };	// SingleArgumentConstructor
+	str6.print();
+
+	String str7{ "World" };
+	str7.print();
+
+	String str8 = str7;
+	str8.print();
+
+	String str9(str8);
+	str9.print();
+
+	String str10{ str9 };
+	str10.print();
 
 	return 0;
 }
