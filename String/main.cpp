@@ -7,8 +7,8 @@ using std::endl;
 class String
 {
 private:
-	char* str;
 	int size;
+	char* str;
 
 public:
 	const char* get_str() const
@@ -24,36 +24,24 @@ public:
 		return size;
 	}
 
-	explicit String(int size = 80)
+	explicit String(int size = 80) : size(size), str(new char[size] {})
 	{
-		this->size = size;
-		str = new char[size] {};
-
 		cout << "DefaultConstructor: " << this << endl;
 	}
-	String(const char* str)	
+	String(const char* str) : size(strlen(str) + 1), str(new char[size] {})
 	{
-		size = strlen(str) + 1;
-		this->str = new char[size] {};
-
 		for (int i = 0; i < size; ++i) this->str[i] = str[i];
 
 		cout << "Constructor: " << this << endl;
 	}
-	String(const String& other)
+	String(const String& other) : size(other.size), str(new char[size] {})
 	{
-		size = other.size;
-		str = new char[size] {};
-
 		for (int i = 0; i < size; ++i) str[i] = other.str[i];
 
 		cout << "CopyConstructor: " << this << endl;
 	}
-	String(String&& other) noexcept
+	String(String&& other) noexcept : size(other.size), str(other.str)
 	{
-		size = other.size;
-		str = other.str;
-
 		other.size = 0;
 		other.str = nullptr;
 
@@ -195,6 +183,9 @@ int main()
 
 	String str10{ str9 };
 	str10.print();
+
+	String str11{ str3 + str8 };
+	str11.print();
 
 	return 0;
 }
