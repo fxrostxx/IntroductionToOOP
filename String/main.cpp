@@ -1,4 +1,4 @@
-﻿#include "String.h"
+﻿#include "StringLIB.h"
 
 //#define CONSTRUCTORS
 //#define COPY_SEMANTIC
